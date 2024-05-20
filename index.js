@@ -66,25 +66,7 @@ app.post('/api/edges', async (req, res) => {
     await session.close();
   }
 });
-// Atualizar um nó
-app.put('/api/nodes/:id', async (req, res) => {
-    const session = driver.session();
-    const { id } = req.params;
-    const { name, label } = req.body;
-    try {
-      await session.run(
-        'MATCH (n) WHERE id(n) = $id SET n.name = $name, n.label = $label RETURN n',
-        { id: parseInt(id), name, label }
-      );
-      res.status(200).send('Node updated successfully');
-    } catch (error) {
-      console.error('Error updating node:', error);
-      res.status(500).send('Internal Server Error');
-    } finally {
-      await session.close();
-    }
-  });
-  
+
   // Excluir um nó
   app.delete('/api/nodes/:id', async (req, res) => {
     const session = driver.session();
@@ -138,6 +120,6 @@ app.get('/api/edges', async (req, res) => {
   }
 });
 
-app.listen(4000, () => {
+app.listen(8000, () => {
   console.log('Server is running on http://localhost:8000');
 });
