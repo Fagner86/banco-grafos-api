@@ -1,16 +1,14 @@
 const express = require('express');
 const neo4j = require('neo4j-driver');
 const cors = require('cors');
-
+require('dotenv').config();
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// informações do Neo4j Aura
-const uri = 'process.env.NEO4J_URI';
-const user = 'neo4j';
-const password = 'process.env.NEO4J_PASSWORD';
-
+const uri = process.env.NEO4J_URI;
+const user = process.env.NEO4J_USER;
+const password = process.env.NEO4J_PASSWORD;
 const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
 
 // Criar um nó
